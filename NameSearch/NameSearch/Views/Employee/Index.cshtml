@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "Employees";
+}
+
+<h2>Employees</h2>
+<hr />
+<div class="row">
+    <div id="search">
+        <div id="divSearch">
+            @Html.Partial("Search")
+        </div>
+    </div>
+</div>
+<div id="waitMsg">
+    <h4 style="color: orangered;">Please wait...</h4>
+</div>
+<br />
+<div class="row">
+    <div id="divList">
+    </div>
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        var name = $('#txtName').val().trim();
+        getEmployees(name, 1);
+    });
+
+    $("#btnSearch").click(function (e) {
+        var name = $('#txtName').val();
+        getEmployees(name, 1);
+    });
+
+    //debugger;
+
+    var getEmployees = function (name, page) {
+        //alert("ok");
+        //debugger;
+        //setPleaseWait();
+        if (name == '') {
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("FilterBy", "Employee")',
+                data: {
+                    _name: name,
+                    _page: page
+                },
+                dataType: "html",
+                beforeSend: function () {
+                    displayWaitMsg(true);
+                },
+                success: function (htmlData) {
+                    //alert(htmlData);
+                    $('div#divList').html(htmlData);
+                },
+                error: function (error, textStatus) {
+                    alert(textStatus);
+                },
+                complete: function () {
+                    displayWaitMsg(false);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("FilterBy", "Employee")',
+                data: {
+                    _name: name,
+                    _page: page
+                },
+                dataType: "json",
+                beforeSend: function () {
+                    //alert("before send");
+                    displayWaitMsg(true);
+                },
+                success: function (jsonData) {
+                    //alert(jsonData);
+                    $(".tab-content").remove();
+                    var items = $.parseJSON(jsonData);
+                    for (var i = 0; i < items.length; ++i) {
+                        $('#table').append('<tr class="tab-content">' +
+                                           '<td>' + items[i].FirstName + '</td>' +
+                                           '<td>' + items[i].LastName + '</td>' +
+                                           '<td>' + items[i].Age + '</td>' +
+                                           '<td>' + items[i].Address + '</td>' +
+                                           '<td>' + items[i].City + '</td>' +
+                                           '<td>' + items[i].State + '</td>' +
+                                           '<td>' + items[i].LastName + '</td>' +
+                                           '<td>' + '<a href="/Employee/Edit?_id=' + items[i].Id + '">Edit</a>' + " | " +
+                                                    '<a href="/Employee/Details?_id=' + items[i].Id + '">Details</a>' + " | " +
+                                                    //'<a href="/Employee/Delete?_id=' + items[i].Id + '?_name=' + $('#txtName').val() + '#" onclick="deleteData(" + items[i].Id + ");">Delete</a>' +
+                                                    '<a onclick="return deleteData(' + items[i].Id + ');" style="cursor: pointer;">Delete</a>' +
+                                           '</td>' +
+                                           '</tr>');
+                    }
+
+                    $("#page-info").empty();
+                    $.ajax({
+                        type: "get",
+                        url: '@Url.Action("PageInfo", "Employee")',
+                        data: {
+                            _name: name,
+                            _page: page
+                        },
+                        dataType: "html",
+                        beforeSend: function () {
+                            displayWaitMsg(true);
+                        },
+                        success: function (htmlData) {
+                            //alert(htmlData);
+                            $('#page-info').html(htmlData);
+                        },
+                        error: function (error, textStatus) {
+                            alert(textStatus);
+                        },
+                        complete: function () {
+                            displayWaitMsg(false);
+                        }
+                    })
+
+                },
+                error: function (error, textStatus) {
+                    alert(textStatus);
+                },
+                complete: function () {
+                    //alert("complete");
+                    displayWaitMsg(false);
+                }
+            });
+        }
+    };
+
+    function deleteData(id) {
+        //debugger;
+        if (confirm('Are you sure you want to delete?')) {
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("Delete", "Employee")',
+                data: {
+                    _id: id
+                },
+                dataType: "html",
+                beforeSend: function () {
+                },
+                success: function (htmlData) {
+                    var name = $('#txtName').val().trim();
+                    getEmployees(name, 1);
+                },
+                error: function (error, textStatus) {
+                    alert(textStatus);
+                },
+                complete: function () {
+                }
+            });
+        }
+        else {
+            return false;
+        }
+    }
+
+    function displayWaitMsg(show) {
+        if (show) {
+            $('#waitMsg').show();
+        }
+        else {
+            $('#waitMsg').hide();
+        }
+    }
+</script>
+}

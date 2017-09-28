@@ -1,0 +1,202 @@
+﻿@model NameSearch.ViewModels.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employees</h2>
+<hr />
+@using (Html.BeginForm("Edit", "Employee"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Zip, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Interest, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Interest, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.TextArea("Interest", Model.Interest, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Interest, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DepartmentId", Model.Departments, "- Select a department -", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PictureUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.HiddenFor(model => model.PictureUrl)
+            @if (Model.PictureUrl != null)
+            {
+                string pictureUrl = "~/Content/photos/" + Model.PictureUrl;
+                <div class="col-md-10">
+                    <img class="img-thumbnail" style="width:200px; height:200px;" src="@Url.Content(pictureUrl)" />
+                    <input type="button" id="RemovePicture" value="Remove Photo" class="btn btn-primary btn-sm" />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="file" id="FileName" name="FileName" class="btn btn-default" />
+                        <span class="input-group-btn">
+                            <input type="button" id="UploadPicture" value="Upload Photo" class="btn btn-primary btn-sm" />
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+    $('#RemovePicture').click(function () {
+        debugger;
+        if (confirm("Are you sure you want to remove the photo?")) {
+            var id = $('#Id').val();
+            var pictureUrl = $('#PictureUrl').val()
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("RemovePhoto", "Employee")',
+                data: {
+                    _id: id,
+                    _pictureUrl: pictureUrl
+                },
+                success: function (htmlData) {
+                    alert("Removed the picture.");
+                },
+                error: function (error, textStatus, errThrown, errThrown2) {
+                    var errMessage = {
+                        Result: false,
+                        message: textStatus + ' - ' + errThrown + " " + errThrown2
+                    };
+                },
+                complete: function () {
+                    location.reload();
+                }
+            });
+        }
+    });
+
+    $("#UploadPicture").click(function () {
+        debugger;
+        var id = $('#Id').val();
+        var fileName = $('#FileName').val()
+        if (fileName == undefined || fileName == "") {
+            alert("No file selected.")
+            return;
+        }
+
+        if (confirm("Are you sure you want to upload the file?")) {
+            var formData = new FormData();
+            formData.append("Id", id);
+
+            var totalFiles = document.getElementById("FileName").files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("FileName").files[i];
+                formData.append("FileName", file);
+            }
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("UploadPhoto", "Employee")',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    alert("Uploaded the picture.");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                },
+                complete: function () {
+                    location.reload();
+                }
+            });
+        }
+    });
+</script>
+}
+
