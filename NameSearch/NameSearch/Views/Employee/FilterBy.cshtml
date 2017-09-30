@@ -69,7 +69,7 @@
                     @Html.ActionLink("Edit", "Edit", new { _id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { _id = item.Id }) |
                     @*@Html.ActionLink("Delete", null, null, new { onclick = "return deleteData(" + item.Id + ");" })*@
-                    <a onclick="return deleteData(@item.Id)" style="cursor: pointer;">Delete</a>
+                    <a onclick="return deleteData(@item.Id, '@item.FirstName @item.LastName')" style="cursor: pointer;">Delete</a>
                 </td>
             </tr>
         }

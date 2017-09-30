@@ -35,15 +35,5 @@ namespace NameSearch.Tests.Controllers
             Assert.IsNotNull(rlt);
         }
 
-        [TestMethod]
-        public void AttachDepartmentList()
-        {
-            Global.SetDataDirectory();
-
-            EmployeeViewModel ev = new EmployeeViewModel();
-            EmployeeController ec = new EmployeeController();
-            Assert.IsNotNull(ev.Departments);
-            Assert.IsTrue(ev.Departments.Count() >= 0);
-        }
     }
 }

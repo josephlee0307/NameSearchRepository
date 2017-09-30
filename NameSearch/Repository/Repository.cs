@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Data.Entity;
 
-namespace Repository
+namespace NameSearch.Repository
 {
     public interface IRepository<T>
     {

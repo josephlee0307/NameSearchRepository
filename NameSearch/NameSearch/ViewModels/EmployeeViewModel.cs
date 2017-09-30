@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using EmployeeEntity;
+using NameSearch.EmployeeEntity;
 using NameSearch.Models;
 using NameSearch.Helpers;
 
@@ -17,11 +17,14 @@ namespace NameSearch.ViewModels
         {
             Departments = new List<SelectListItem>();
 
-            DepartmentModel dm = new DepartmentModel();
-            var departments = dm.GetAllItems().OrderBy(e => e.Name);
-            foreach (Department d in departments)
+            using(EmployeeEntities context = new EmployeeEntities())
             {
-                Departments.Add(new SelectListItem() { Value = d.Id.ToString(), Text = d.Name });
+                DepartmentModel dm = new DepartmentModel(context);
+                var departments = dm.GetAllItems().OrderBy(e => e.Name);
+                foreach (Department d in departments)
+                {
+                    Departments.Add(new SelectListItem() { Value = d.Id.ToString(), Text = d.Name });
+                }
             }
 
             PageInfo = new PageInfo();

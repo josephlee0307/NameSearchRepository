@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Data.Entity;
-using EmployeeEntity;
-using Repository;
+using NameSearch.EmployeeEntity;
+using NameSearch.Repository;
 using NameSearch.ViewModels;
 namespace NameSearch.Models
 {
@@ -14,9 +14,9 @@ namespace NameSearch.Models
         private DbContext context;
         private Repository<Department> repo;
 
-        public DepartmentModel()
+        public DepartmentModel(DbContext _context)
         {
-            context = new EmployeeEntities();
+            context = _context;
             repo = new Repository<Department>(context);
         }
 

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EmployeeEntity
+namespace NameSearch.EmployeeEntity
 {
     using System;
     using System.Data.Entity;

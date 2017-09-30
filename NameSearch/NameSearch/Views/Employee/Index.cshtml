@@ -63,6 +63,7 @@
             });
         }
         else {
+            //debugger;
             $.ajax({
                 type: "post",
                 url: '@Url.Action("FilterBy", "Employee")',
@@ -91,7 +92,7 @@
                                            '<td>' + '<a href="/Employee/Edit?_id=' + items[i].Id + '">Edit</a>' + " | " +
                                                     '<a href="/Employee/Details?_id=' + items[i].Id + '">Details</a>' + " | " +
                                                     //'<a href="/Employee/Delete?_id=' + items[i].Id + '?_name=' + $('#txtName').val() + '#" onclick="deleteData(" + items[i].Id + ");">Delete</a>' +
-                                                    '<a onclick="return deleteData(' + items[i].Id + ');" style="cursor: pointer;">Delete</a>' +
+                                                    '<a onclick="return deleteData(' + items[i].Id + ',&quot;' + items[i].FirstName + ' ' + items[i].LastName + '&quot;);" style="cursor: pointer;">Delete</a>' +
                                            '</td>' +
                                            '</tr>');
                     }
@@ -132,9 +133,9 @@
         }
     };
 
-    function deleteData(id) {
+    function deleteData(id, name) {
         //debugger;
-        if (confirm('Are you sure you want to delete?')) {
+        if (confirm('Are you sure you want to delete "' + name + '"?')) {
             $.ajax({
                 type: "post",
                 url: '@Url.Action("Delete", "Employee")',

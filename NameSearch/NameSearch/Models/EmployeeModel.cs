@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Data.Entity;
-using EmployeeEntity;
-using Repository;
+using NameSearch.EmployeeEntity;
+using NameSearch.Repository;
 using NameSearch.ViewModels;
 
 namespace NameSearch.Models
@@ -17,9 +17,9 @@ namespace NameSearch.Models
         private Repository<Employee> repo;
         private const string PHOTO_LOCATION = "~/Content/photos";
 
-        public EmployeeModel()
+        public EmployeeModel(DbContext _context)
         {
-            context = new EmployeeEntities();
+            context = _context;
             repo = new Repository<Employee>(context);
         }
 
@@ -121,7 +121,7 @@ namespace NameSearch.Models
             _vm.DepartmentId = _m.DepartmentId;
             if (_m.DepartmentId != null)
             {
-                DepartmentModel dm = new DepartmentModel();
+                DepartmentModel dm = new DepartmentModel(context);
                 _vm.DepartmentName = dm.GetItemById((int) _m.DepartmentId).Name;
             }
         }
@@ -141,6 +141,5 @@ namespace NameSearch.Models
             _m.PictureUrl = _vm.PictureUrl;
             _m.DepartmentId = _vm.DepartmentId;
         }
-
     }
 }
