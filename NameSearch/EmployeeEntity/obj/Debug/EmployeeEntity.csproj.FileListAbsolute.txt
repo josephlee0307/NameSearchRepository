@@ -25,3 +25,4 @@ C:\My GitHub\NameSearchRepository\NameSearch\EmployeeEntity\bin\Debug\EntityFram
 C:\My GitHub\NameSearchRepository\NameSearch\EmployeeEntity\bin\Debug\EntityFramework.SqlServer.xml
 C:\My GitHub\NameSearchRepository\NameSearch\EmployeeEntity\obj\Debug\EmployeeEntity.dll
 C:\My GitHub\NameSearchRepository\NameSearch\EmployeeEntity\obj\Debug\EmployeeEntity.pdb
+C:\My GitHub\NameSearchRepository\NameSearch\EmployeeEntity\obj\Debug\EmployeeEntity.csprojResolveAssemblyReference.cache

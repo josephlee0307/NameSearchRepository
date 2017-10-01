@@ -150,7 +150,6 @@ namespace NameSearch.Controllers
             return View("Edit", _ev);
         }
 
-
         [HttpPost]
         public void Delete(int _id)
         {

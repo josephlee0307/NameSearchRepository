@@ -148,14 +148,11 @@
                 success: function (htmlData) {
                     alert("Removed the picture.");
                 },
-                error: function (error, textStatus, errThrown, errThrown2) {
-                    var errMessage = {
-                        Result: false,
-                        message: textStatus + ' - ' + errThrown + " " + errThrown2
-                    };
+                error: function (error, textStatus) {
+                    alert(textStatus);
                 },
                 complete: function () {
-                    location.reload();
+                    location.href = '@Url.Action("Details", "Employee", new { _id = Model.Id })';
                 }
             });
         }
@@ -188,11 +185,11 @@
                 success: function (data) {
                     alert("Uploaded the picture.");
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
+                error: function (error, textStatus) {
+                    alert(textStatus);
                 },
                 complete: function () {
-                    location.reload();
+                    location.href = '@Url.Action("Details", "Employee", new { _id = Model.Id })';
                 }
             });
         }
