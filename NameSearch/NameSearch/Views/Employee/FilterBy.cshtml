@@ -28,10 +28,10 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Interest)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.PictureUrl)
-            </th>*@
+            </th>
             <th></th>
         </tr>
 
@@ -65,6 +65,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PictureUrl)
                 </td>*@
+                <td>
+                    @if (item.PictureUrl != null)
+                    {
+                        <img class="thumbnail" width="250" height="200" src="~/Content/photos/@item.PictureUrl" />
+                    }
+                </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { _id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { _id = item.Id }) |

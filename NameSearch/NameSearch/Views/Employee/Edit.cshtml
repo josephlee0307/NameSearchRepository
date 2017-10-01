@@ -103,7 +103,7 @@
             {
                 string pictureUrl = "~/Content/photos/" + Model.PictureUrl;
                 <div class="col-md-10">
-                    <img class="img-thumbnail" style="width:200px; height:200px;" src="@Url.Content(pictureUrl)" />
+                    <img class="img-thumbnail" style="width:250px; height:200px;" src="@Url.Content(pictureUrl)" />
                     <input type="button" id="RemovePicture" value="Remove Photo" class="btn btn-primary btn-sm" />
                 </div>
             }
@@ -152,7 +152,8 @@
                     alert(textStatus);
                 },
                 complete: function () {
-                    location.href = '@Url.Action("Details", "Employee", new { _id = Model.Id })';
+                    //location.href = '@Url.Action("Details", "Employee", new { _id = Model.Id })';
+                    location.href = '@Url.Action("Edit", "Employee", new { _id = Model.Id })';
                 }
             });
         }
@@ -189,7 +190,8 @@
                     alert(textStatus);
                 },
                 complete: function () {
-                    location.href = '@Url.Action("Details", "Employee", new { _id = Model.Id })';
+                    //location.href = '@Url.Action("Details", "Employee", new { _id = Model.Id })';
+                    location.href = '@Url.Action("Edit", "Employee", new { _id = Model.Id })';
                 }
             });
         }

@@ -15,7 +15,6 @@ namespace NameSearch.Models
     {
         private DbContext context;
         private Repository<Employee> repo;
-        private const string PHOTO_LOCATION = "~/Content/photos";
 
         public EmployeeModel(DbContext _context)
         {
@@ -100,9 +99,14 @@ namespace NameSearch.Models
             }
         }
 
-        public string PhotoFilePath
+        public static string PhotoFilePath
         {
-            get { return System.Web.HttpContext.Current.Server.MapPath(PHOTO_LOCATION); }
+            get { return System.Web.HttpContext.Current.Server.MapPath("~/Content/photos"); }
+        }
+
+        public static string PhotoFileUrl
+        {
+            get { return "/Content/photos"; }
         }
 
         public void ConvertModelToViewModel(Employee _m, EmployeeViewModel _vm)

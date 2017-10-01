@@ -37,7 +37,6 @@
     var getEmployees = function (name, page) {
         //alert("ok");
         //debugger;
-        //setPleaseWait();
         if (name == '') {
             $.ajax({
                 type: "post",
@@ -81,17 +80,23 @@
                     $(".tab-content").remove();
                     var items = $.parseJSON(jsonData);
                     for (var i = 0; i < items.length; ++i) {
+                        var img;
+                        //alert(items[i].PictureUrl);
+                        if (items[i].PictureUrl != null || items[i].PictureUrl != undefined)
+                            img = '<img class="thumbnail" width="250" height="200" src="' + items[i].PictureUrl + '"/>';
+                        else
+                            img = '';
+
                         $('#table').append('<tr class="tab-content">' +
                                            '<td>' + items[i].FirstName + '</td>' +
                                            '<td>' + items[i].LastName + '</td>' +
-                                           '<td>' + items[i].Age + '</td>' +
-                                           '<td>' + items[i].Address + '</td>' +
-                                           '<td>' + items[i].City + '</td>' +
-                                           '<td>' + items[i].State + '</td>' +
-                                           '<td>' + items[i].LastName + '</td>' +
+                                           '<td>' + (items[i].Age == null ? "" : items[i].Age) + '</td>' +
+                                           '<td>' + (items[i].Address == null ? "" : items[i].Address) + '</td>' +
+                                           '<td>' + (items[i].City == null ? "" : items[i].City)  + '</td>' +
+                                           '<td>' + (items[i].State == null ? "" : items[i].State) + '</td>' +
+                                           '<td>' + img + '</td>' +
                                            '<td>' + '<a href="/Employee/Edit?_id=' + items[i].Id + '">Edit</a>' + " | " +
                                                     '<a href="/Employee/Details?_id=' + items[i].Id + '">Details</a>' + " | " +
-                                                    //'<a href="/Employee/Delete?_id=' + items[i].Id + '?_name=' + $('#txtName').val() + '#" onclick="deleteData(" + items[i].Id + ");">Delete</a>' +
                                                     '<a onclick="return deleteData(' + items[i].Id + ',&quot;' + items[i].FirstName + ' ' + items[i].LastName + '&quot;);" style="cursor: pointer;">Delete</a>' +
                                            '</td>' +
                                            '</tr>');

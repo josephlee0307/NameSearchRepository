@@ -58,6 +58,10 @@ namespace NameSearch.Controllers
                     {
                         EmployeeViewModel ev = new EmployeeViewModel();
                         em.ConvertModelToViewModel(emp, ev);
+                        if (ev.PictureUrl != null)
+                        {
+                            ev.PictureUrl = EmployeeModel.PhotoFileUrl + "/" + ev.PictureUrl;
+                        }
                         list.Add(ev);
                     }
                     ViewBag.Name = _name;
@@ -172,7 +176,7 @@ namespace NameSearch.Controllers
                 EmployeeModel em = new EmployeeModel(context);
                 em.RemovePicture(_id);
 
-                string filePath = em.PhotoFilePath + "\\" + _pictureUrl;
+                string filePath = EmployeeModel.PhotoFilePath + "\\" + _pictureUrl;
                 if (System.IO.File.Exists(filePath))
                     System.IO.File.Delete(filePath);
             }
@@ -197,7 +201,7 @@ namespace NameSearch.Controllers
                     using (EmployeeEntities context = new EmployeeEntities())
                     {
                         EmployeeModel em = new EmployeeModel(context);
-                        System.IO.File.WriteAllBytes(em.PhotoFilePath + "\\" + fileName, content);
+                        System.IO.File.WriteAllBytes(EmployeeModel.PhotoFilePath + "\\" + fileName, content);
 
                         em.AddPicture(id, fileName);
                     }
